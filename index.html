@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Time, Weather, and Points of Interest</title>
+	<meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="main.css">
+	<link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+</head>
+<body>
+
+	<header>
+		<h1>Time, Weather, and Points of Interest</h1>
+		<p>Find nearby points of interest and local weather.</p>
+	</header>
+
+	<main role="main" aria-live="polite">
+
+		<form>
+			<label for="search">
+				<button id="userData">Load your location</button><br>
+				<input type="text" id="search" placeholder="Search your surroundings">
+				<button id="searchBtn">Search</button>
+				<button id="nearby">Find points of interest</button>
+			</label>
+		</form>
+
+		<section>
+			<fieldset id="location">
+				<legend>Location</legend>
+					<label for="address">Address:
+						<input id="address" size="70" readonly>
+					</label> 
+				<ul>
+					<li>
+						<label for="currentTime">Current Time:
+							<input id="currentTime" readonly>
+						</label> 
+					</li>
+					<li>
+						<label for="altitude">Altitude:
+							<input id="altitude" readonly>
+						</label> 
+					</li>
+					<li>
+						<label for="temperature">Temperature:
+							<input id="temperature" readonly>
+						</label> 
+					</li>
+					<li>
+						<label for="weather">Weather:
+							<input id="weather" readonly>
+						</label> 
+					</li>
+					<li>
+						<label for="sunrise">Sunrise:
+							<input id="sunrise" readonly>
+						</label> 
+					</li>
+					<li>
+						<label for="sunset">Sunset:
+							<input id="sunset" readonly>
+						</label> 
+					</li>
+				</ul>		
+			</fieldset>
+		</section>
+		
+		<section>
+			<p id="map"></p>
+		</section>
+	</main>
+
+	<script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6_VyENt_bX46tNLwJ6wF_3ci1Nk06Bsg&libraries=places&callback=initMap">
+    </script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="app.js"></script>
+
+</body>
+</html>
