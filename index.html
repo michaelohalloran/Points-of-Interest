@@ -16,50 +16,37 @@
 	<main role="main" aria-live="polite">
 
 		<form>
-			<label for="search">
-				<button id="userData">Load your location</button><br>
-				<input type="text" id="search" placeholder="Search your surroundings">
-				<button id="searchBtn">Search</button>
-				<button id="nearby">Find points of interest</button>
-			</label>
+			<button id="userData">Load your location</button><br>
+			<input type="text" id="search" placeholder="Search your surroundings">
+			<button id="searchBtn">Search</button>
+			<button id="nearby">Find points of interest</button>
 		</form>
 
 		<section>
 			<fieldset id="location">
 				<legend>Location</legend>
-					<label for="address">Address:
-						<input id="address" size="70" readonly>
-					</label> 
+					<label for="address">Address:</label> 
+					<input id="address" readonly><br/>
+					<label for="altitude">Altitude:</label> 
+					<input id="altitude" readonly><br/>
+					<label for="weather">Weather:</label>
+					<input id="weather" readonly>
 				<ul>
 					<li>
-						<label for="currentTime">Current Time:
-							<input id="currentTime" readonly>
-						</label> 
+						<label for="currentTime">Time:</label> 
+						<input id="currentTime" size="8" readonly>
 					</li>
 					<li>
-						<label for="altitude">Altitude:
-							<input id="altitude" readonly>
-						</label> 
+						<label for="temperature">Temperature:</label> 
+						<input id="temperature" size="8" readonly>
+					</li>		
+					<li>
+						<label for="sunrise">Sunrise:</label> 
+						<input id="sunrise" size="8" readonly>
 					</li>
 					<li>
-						<label for="temperature">Temperature:
-							<input id="temperature" readonly>
-						</label> 
-					</li>
-					<li>
-						<label for="weather">Weather:
-							<input id="weather" readonly>
-						</label> 
-					</li>
-					<li>
-						<label for="sunrise">Sunrise:
-							<input id="sunrise" readonly>
-						</label> 
-					</li>
-					<li>
-						<label for="sunset">Sunset:
-							<input id="sunset" readonly>
-						</label> 
+						<label for="sunset">Sunset:</label>
+						<input id="sunset" size="8" readonly> 
 					</li>
 				</ul>		
 			</fieldset>

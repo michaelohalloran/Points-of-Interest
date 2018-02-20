@@ -39,6 +39,8 @@ function initMap () {
 	$nearbyBtn.on("click", getNearbyPoints);
 	$userLocBtn.on("click", getUserLocation);
 
+	let autocomplete = new google.maps.places.Autocomplete($searchInputBox);
+
 	//handleSearch should capture user input, encode it, then getMap of that place
 	function handleSearch(event) {
 		event.preventDefault();
@@ -68,7 +70,8 @@ function initMap () {
 			}	
 			searchedAddress = json.results[0].geometry.location;
 			readableAddress = json.results[0].formatted_address;
-			updateMap(searchedAddress, readableAddress);			
+			updateMap(searchedAddress, readableAddress);
+			$userSearchTerm.val('');			
 		});
 	}
 
@@ -82,8 +85,6 @@ function initMap () {
 				aboveSeaLevel = Math.round(results[0].elevation*3.28084);
 				$addressDisplay.val(`${readableAddress}`);
 				$altitudeDisplay.val(`${aboveSeaLevel} feet above sea level`);
-				// $weatherDisplay.prepend(`<legend>Location</legend>
-					// <p>Visiting from ${readableAddress}, at ${aboveSeaLevel} feet above sea level.</p>`);
 			}
 		});
 
@@ -105,19 +106,33 @@ function initMap () {
 			getLocalTime(place);
 			$weatherDisplay.val(weatherType);
 			$temperatureDisplay.val(`${localTemp}°`);
-			// $weatherDisplay.append(`<ul>
-			// 		<li>Temperature: ${localTemp}°</li>
-			// 		<li>Weather: ${weatherType}</li>
-			// </ul>`);
-			$locationDisplay.css('display', 'inline-block');
+			$locationDisplay.css('display', 'block');
 		});
 	}
 
-	function addZero(time) {
+	function fixMinutes(time) {
 		if(time < 10) {
+			
 			time= "0".concat(time);
 		}
 			return time;
+	}
+
+	function fixHour(time) {
+		if(time == 0 || time == 12) {
+			time = 12;
+		} else {
+			time = time%12;
+		}
+		return time;
+	}
+
+	function amPm(time) {
+		if(time.getHours() >= 12) {
+			return " p.m.";
+		} else {
+			return " a.m.";
+		}
 	}
 
 	function getLocalTime(place) {
@@ -126,8 +141,7 @@ function initMap () {
 		$.getJSON(`${timeURL.endpoint}?location=${place.lat},${place.lng}&timestamp=${realTimestamp}&key=${timeURL.key}`, function(json) {
 			let offsets = json.dstOffset * 1000 + json.rawOffset * 1000;
 			let localTime = new Date(realTimestamp*1000 + offsets);
-			let realTime = localTime.getHours()%12 + ":" + addZero(localTime.getMinutes());
-			// $weatherDisplay.prepend(`Local Time: ${realTime}`);
+			let realTime = fixHour(localTime.getHours()) + ":" + fixMinutes(localTime.getMinutes()) + amPm(localTime);
 			$timeDisplay.val(realTime);
 		});
 	}
@@ -138,7 +152,7 @@ function initMap () {
 		$.getJSON(`${timeURL.endpoint}?location=${place.lat},${place.lng}&timestamp=${realTimestamp}&key=${timeURL.key}`, function(json) {
 			let offsets = json.dstOffset * 1000 + json.rawOffset * 1000;
 			let realDateString = new Date(realTimestamp*1000 + offsets);
-			let realRise = realDateString.getHours()%12 + ":" + addZero(realDateString.getMinutes());
+			let realRise = realDateString.getHours()%12 + ":" + fixMinutes(realDateString.getMinutes());
 			$sunriseDisplay.val(`${realRise} a.m.`);
 		});
 	}
@@ -149,8 +163,7 @@ function initMap () {
 		$.getJSON(`${timeURL.endpoint}?location=${place.lat},${place.lng}&timestamp=${realTimestamp}&key=${timeURL.key}`, function(json) {
 			let offsets = json.dstOffset * 1000 + json.rawOffset * 1000;
 			let setTime = new Date(realTimestamp*1000 + offsets);
-			let realSet = setTime.getHours()%12 + ":" + addZero(setTime.getMinutes());
-			// $weatherDisplay.append(`<li>Sunset: ${realSet} p.m.</li>`);
+			let realSet = setTime.getHours()%12 + ":" + fixMinutes(setTime.getMinutes());
 			$sunsetDisplay.val(`${realSet} p.m.`);
 		});
 	}

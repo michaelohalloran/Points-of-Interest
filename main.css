@@ -36,8 +36,6 @@ li {
 	display: inline-block;
 	width: 45%;
 	margin: 5px;
-	margin-left: auto;
-	margin-right: auto;
 	font-weight: bold;
 	color: #fbffea;
 }
@@ -47,6 +45,7 @@ fieldset {
 	box-shadow: inset 0px 0px 10px 2px rgba(49, 5, 5, 0.5);
 	border: 2px solid #310505;
 	display: none;
+	text-align: left;
 }
 
 legend {
@@ -61,6 +60,12 @@ legend {
 label {
 	color: black;
 	font-weight: bold;
+	text-align: right;
+}
+
+label:not([for=search]) {
+	width: 70px;
+	display: inline-block;
 }
 
 input:not(#search) {
@@ -68,24 +73,32 @@ input:not(#search) {
 	border: none;
 	box-shadow: none;
 	cursor: default;
+	display: initial;
+}
+
+ul label {
+	width: 90px !important;
 }
 
 li {
 	list-style: none;
+	width: 200px;
 }
 
 ul {
 	padding-left: 0;
+	border-top: 1px;
 }
 
-form {
-	text-align: center;
+input {
+	padding: 5px;
+	margin: 5px;
 }
 
-button, input {
-	padding: 10px;
-	margin: 10px;
+#address, #altitude, #weather {
+	width: calc(100vw - 160px);
 }
+
 
 input:focus {
 	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0,0.5);
@@ -96,13 +109,14 @@ button {
 	border: 1px solid black;
 	background: rgba(0, 0, 0, 0.5);
 	font-size: 1.25em;
+	padding: 10px;
+	margin: 10px;
 }
 
 button:hover {
 	background: linear-gradient(to bottom, #310505 0%, darkred 100%);
 	box-shadow: 2px 2px 2px 1px rgba(0, 0, 0,0.5);
 	border: 1px solid black;
-	/* padding: 11px; */
 	background-color: #ebeaff;
 	cursor: pointer;
 
@@ -110,20 +124,31 @@ button:hover {
 
 /*MEDIA QUERIES*/
 
-@media (max-width: 800px) {
+@media (max-width: 768px) {
 	body {
 		font-size: small;
 	}
 
+	label {
+		width: 80px;
+	}
+
 	button {
-		display: block;
-		width: 50%;
-		margin: 10px auto;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	#address, #altitude, #weather {
+		width: calc(100vw - 154px);
 	}
 }
 
-@media (max-width: 600px) {
-	body {
-		font-size: x-small;
+@media (max-width: 320px) {
+	input, button {
+		font-size: 10px;
+	}
+
+	#address, #altitude, #weather {
+		width: calc(100vw - 154px);
 	}
 }
