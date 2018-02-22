@@ -152,7 +152,7 @@ function initMap () {
 		$.getJSON(`${timeURL.endpoint}?location=${place.lat},${place.lng}&timestamp=${realTimestamp}&key=${timeURL.key}`, function(json) {
 			let offsets = json.dstOffset * 1000 + json.rawOffset * 1000;
 			let realDateString = new Date(realTimestamp*1000 + offsets);
-			let realRise = realDateString.getHours()%12 + ":" + fixMinutes(realDateString.getMinutes());
+			let realRise = fixHour(realDateString.getHours())  + ":" + fixMinutes(realDateString.getMinutes());
 			$sunriseDisplay.val(`${realRise} a.m.`);
 		});
 	}
@@ -163,7 +163,7 @@ function initMap () {
 		$.getJSON(`${timeURL.endpoint}?location=${place.lat},${place.lng}&timestamp=${realTimestamp}&key=${timeURL.key}`, function(json) {
 			let offsets = json.dstOffset * 1000 + json.rawOffset * 1000;
 			let setTime = new Date(realTimestamp*1000 + offsets);
-			let realSet = setTime.getHours()%12 + ":" + fixMinutes(setTime.getMinutes());
+			let realSet = fixHour(setTime.getHours()) + ":" + fixMinutes(setTime.getMinutes());
 			$sunsetDisplay.val(`${realSet} p.m.`);
 		});
 	}
